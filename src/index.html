@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>飞熊在天</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.publicPath %>libs/modules/index.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    
+    <script src="<%= htmlWebpackPlugin.options.publicPath %>libs/modules/egret/egret.min.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.publicPath %>libs/modules/egret/egret.web.min.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.publicPath %>libs/modules/game/game.min.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.publicPath %>libs/modules/tween/tween.min.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.publicPath %>libs/modules/assetsmanager/assetsmanager.min.js"></script>
+</head>
+
+<body>
+    <!-- <div style="position: fixed;left: 0;top: 0;bottom: 0;right: 0;z-index:11;"> -->
+        <!-- <p id="game-rule" style="margin:0;position:absolute;z-index:10;color:#fff;border-bottom:1px solid #ccc;margin: 0 auto;top:38%;right:34%;font-family:微软雅黑;font-size:20px;">查看游戏规则</p> -->
+    <!-- </div> -->
+    <!-- <div style="position: fixed;left: 0;top: 0;bottom: 0;right: 0; z-index:100;">
+        <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);margin: 0 auto;background:url('./resource/img/game_rule.png')no-repeat;    width: 90%;box-sizing:border-box;padding: 120px 20px 10px;
+        background-size: 100%;">
+            <div style="background-color:#fff;padding:10px 30px;border-radius:20px;max-height:260px;color:#db6903;font-size:16px;font-weight:100;">
+                <p>
+                    <b>活动时间：</b><br />2018.9.30—2018.10.7
+                </p>
+                <p>
+                    <b>游戏玩法：</b><br />手指按住划动屏幕人物左右移动不要让飞上去的物体碰到。
+                </p>
+                <p>
+                    <b>获取奖品规则：</b><br />在分数排行榜内就可获得奖品，分数按最高的排行，如有相同分数的按先玩的排序，最终解释权归盈富永泰集团所有。
+                </p>
+            </div>
+            
+        </div>
+    </div> -->
+    <div id="phbpop" style="position: fixed;left: 0;top: 0;bottom: 0;right: 0; z-index: 1;display:none;">
+        <!-- 排行榜 -->
+        <div class="ranking-page">
+                <img src="./libs/modules/close.png" alt="" onclick="closePop()" class="close-img">
+                <h3 style="text-align:center;">九天揽月排行榜</h3>
+                <ul class="list" id="list"></ul>
+                <div style="margin: 0 auto;text-align: center;">
+                    <span onclick="prev()" style="pointer:cursor;">上一页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span onclick="next()" style="pointer:cursor;">下一页</span>
+                </div>
+            </div>
+    </div>
+    
+
+    <div id="pophtml"></div>
+        <div id="bianhaopop" style="position: fixed;left: 0;top: 0;bottom: 0;right: 0; z-index: 11000;display:none;">
+                <div style="position: absolute;top: 50%;left: 50%;color: #fff;text-align: center;background-color:rgba(0,0,0,.5);border-radius: 10px;
+                transform: translate(-50%, -50%);margin: 0 auto;">
+                    <div style="padding:10px 20px;">
+                            <span id="hint11">用户编号不能为空，获取用户编号请查看下方获取用户编号规则。</span>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="chakanpaihang" style="position: fixed;left: 0;top: 0;bottom: 0;right: 0; z-index: 11000;display:none;">
+                <div style="position: absolute;top: 50%;left: 50%;color: #fff;text-align: center;background-color:rgba(0,0,0,.5);border-radius: 10px;
+                transform: translate(-50%, -50%);margin: 0 auto;">
+                    <div style="padding:10px 20px;">
+                            <span id="hint11">请先关注公众号“盈富永泰集团”，方可查看排行榜！</span>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div id="newload" style="position: fixed;z-index:100001;left: 0;right: 0;bottom: 0;top: 0;">
+                <div style="position: fixed;left: 0px;right: 0px;top: 0px;bottom: 0px;    margin: auto;width: 400px;font-size:20px;height: 100px;text-align: center;z-index:10000;color:#000;">
+                  请等待
+                  <div class="spinner">
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                  </div>
+                </div>
+              </div>
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player" data-entry-class="Main" data-orientation="auto"
+        data-scale-mode="exactFit" data-frame-rate="60" data-content-width="640" data-content-height="1136" data-multi-fingered="2"
+        data-show-fps="false" data-show-log="false" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
+    </div>
+    <div id="zhezhao">
+        <div class="zhezhao-div">
+            <div>
+                用户编号：<input type="text" id="bianhao" placeholder="请输入编号" /><br>
+                <button style="background: #7c00a8;color: #fff;outline: none;border: none;" onclick="submitFun()">确定</button>
+                <button>查看规则</button>
+                <p><b>获取编号步骤：</b><br>关注"盈富永泰集团"公众号，发送“中秋游戏”到对话框扫描小程序二维码即可游戏，或点击下方最新资讯——中秋活动小游戏，进入小程序填写相关用户信息即可获取用户编号进行游戏。</p>
+                <p><b>游戏奖励规则：</b><br>进入小程序查看排行榜，只要分数进入排行榜即可获取月亮奖品一枚，领取依据用户填写的信息为准。</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+    <audio src="https://rhzs.xiaohucloud.com/game/music.mp3" loop="loop" id="music" preload="auto" />
+    <script>
+        egret.runEgret({
+            renderMode: "webgl", audioType: 0, calculateCanvasScaleFactor: function (context) {
+                var backingStore = context.backingStorePixelRatio ||
+                    context.webkitBackingStorePixelRatio ||
+                    context.mozBackingStorePixelRatio ||
+                    context.msBackingStorePixelRatio ||
+                    context.oBackingStorePixelRatio ||
+                    context.backingStorePixelRatio || 1;
+                return (window.devicePixelRatio || 1) / backingStore;
+            }
+        });
+        function GetRequest() {  
+            var url = location.search; //获取url中"?"符后的字串  
+            var theRequest = new Object();  
+            if (url.indexOf("?") != -1) {  
+               var str = url.substr(1);  
+               strs = str.split("&");  
+               for(var i = 0; i < strs.length; i ++) {  
+                  theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);  
+               }  
+            }  
+            return theRequest;  
+         }  
+         function submitFun(){//提交表单
+            music.play()
+            newload.style.display = 'block'//加载中
+             if(bianhao.value == ''){
+                 document.getElementById('bianhaopop').style.display = 'block'
+                 newload.style.display = 'none'
+                 setTimeout(function(){document.getElementById('bianhaopop').style.display = 'none'},1500)
+                 return false;
+             }else{
+                $.ajax({//提交编号返回token
+                    url: 'https://cjp.xiaohucloud.com/api/api_validate_ticket_id',
+                    type: "POST",//133523
+                    dataType: "json",
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                    data: {
+                        ticket_id:bianhao.value
+                    },
+                    success: function (res) {
+                        if(res.code === 0){
+                            if(res.data.token == ''){
+                                document.getElementById('hint11').innerText = '编号错误'
+                                document.getElementById('bianhaopop').style.display = 'block'
+                 newload.style.display = 'none'
+                 setTimeout(function(){document.getElementById('bianhaopop').style.display = 'none'},1500)
+                                return false
+                            }else{
+                                sessionStorage.setItem('userToken', res.data.token);
+                                zhezhao.style.display = 'none'
+                                newload.style.display = 'none'
+                            }
+                        }
+                        //console.log(res.data.token);
+                        
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+        
+                })
+             }
+            
+        }
+
+        //获取排行榜分数
+        var pageNum = 1
+        function getGrade(num){
+            console.log(num)
+            $.ajax({
+                url:'https://cjp.xiaohucloud.com/api/api_get_user_rankings',
+                header:{ 'content-type': 'application/x-www-form-urlencoded' },
+                data:{
+                    page:num || '3',
+                    number: '10'
+                },
+                success:function(res){
+                    var d = JSON.parse((res)),
+                        data = d.data,
+                        elem = '';
+                        /*for (var i in data) {
+                            var a = data[i].ticket_id.slice(0,2)
+                            var b = data[i].ticket_id.slice(-2)
+                            data[i].ticket_id = a + '**' + b
+                          }
+                    console.log(typeof data)*/
+                    if(data != ''){
+                        $.each(data,function(key,val){
+                            elem += '<li class="list-li">'+
+                                '<div class="ranking">'+parseInt(key+1)+'</div>'+
+                                '<div class="username">'+
+                                    '<img src='+val.head_image_url+' />'+
+                                    '<span>'+val.nick_name+'</span>'+
+                                '</div>'+
+                                /*'<div class="grade">'+val.nick_name+'</div>'+*/
+                                '<div>'+val.score+'</div>'+
+                            '</li>'
+                        })
+                        $('#list').html(elem)
+                    }else{
+                        pageNum = num
+                    }
+                    newload.style.display = 'none'
+                    
+                },
+                error:function(err){
+                    console.log(err)
+                    newload.style.display = 'none'
+                }
+            })
+        }
+        function prev(){
+            pageNum > 1
+            ? pageNum--
+            : pageNum
+            newload.style.display = 'block'
+            getGrade(pageNum)
+        }
+        function next(){
+            pageNum >= 1 && pageNum <= 4 
+            ? pageNum++
+            : pageNum
+            newload.style.display = 'block'
+            getGrade(pageNum)
+        }
+
+        //查看排行榜
+        function lookRanking(){
+            newload.style.display = 'block'//加载中
+            $.ajax({
+                url:'https://cjp.xiaohucloud.com/api/api_get_check_subscribe',
+                type:"get",
+                data:{token:sessionStorage.getItem('userToken')},
+                success:function(res){
+                    var res = JSON.parse(res)
+                    if(res.code == 0){
+                        newload.style.display = 'none'//加载中
+                        
+                        if(res.data['subscribe'] != 0){//有关注
+                            console.log(res.data['subscribe'])
+                            $('#phbpop').css('display','block')
+                            $('.ranking-page').css('display','block')
+                            $('#pophtml').css('display','none')
+                            getGrade(pageNum)
+                        }else{
+                            $('#chakanpaihang').css('display','block')
+                            setTimeout(function(){
+                                $('#chakanpaihang').css('display','none')
+                            },5000)
+                            
+                    }
+                    newload.style.display = 'none'//加载中
+                }else{
+                    
+                    console.log('状态错误')
+                }
+                    newload.style.display = 'none'//加载中
+                },
+                error:function(err){
+                    console.log(err)
+                    newload.style.display = 'none'//加载中
+                }
+            })
+            
+        }
+        function closePop(){
+            console.log(12)
+            $('#phbpop').css('display','none')
+            $('#pophtml').css('display','none')
+        }
+        $(function () {
+            var url = window.location.search;
+            var token = url.split('?token=')[1];
+            
+            if(token != '' && token != undefined){//小程序进入
+                console.log(token)
+                sessionStorage.setItem('userToken',token);
+                zhezhao.style.display = 'none'
+                
+            }else{
+                
+            }
+            getGrade(pageNum)
+            
+        })
+        
+    </script>
+</body>
+
+</html>

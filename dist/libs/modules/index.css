@@ -1,0 +1,177 @@
+/*游戏样式*/
+#newload{
+    display: none;
+}
+/*加载*/
+    .spinner {
+        height: 40px;
+        font-size:0;
+      }
+  
+      .spinner>div {
+        background-color: #985099 ;
+        height: 100%;
+        width: 6px;
+        display: inline-block;
+        animation: sk-stretchdelay 1.2s infinite ease-in-out;
+        margin-right:6px;
+      }
+  
+      @keyframes sk-stretchdelay {
+        0%,
+        40%,
+        100% {
+          transform: scaleY(0.4);
+        }
+        20% {
+          transform: scaleY(1.0);
+        }
+      }
+      .spinner .rect2 {animation-delay: -1.1s; } 
+  .spinner .rect3 { animation-delay: -1.0s; } 
+  .spinner .rect4 { animation-delay: -0.9s; } 
+  .spinner .rect5 { animation-delay: -0.8s; }
+
+
+#music{
+    display: none;
+    position: fixed;
+    z-index: -10;
+}
+html,
+body {
+    -ms-touch-action: none;
+    background: #888888;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    height: 100%;
+}
+p{
+    margin:0;
+}
+#zhezhao {position: fixed;left: 0;top: 0;bottom: 0;right: 0;background-color: rgba(0, 0, 0, .5); z-index: 10000;display: none;}
+#zhezhao input {width: 100px;height: 20px;margin-bottom:10px;outline: none;border:1px solid #ccc;background:none;font-size: 18px;padding:4px;}
+#zhezhao .zhezhao-div{position: absolute;    top: 50%;
+    left: 50%;
+    color: #fff;text-align: center;
+    
+    
+    background-color:#fdf8f4;border-radius: 10px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;}
+    #zhezhao .zhezhao-div button{
+        margin: 0 auto;
+        padding: 10px 40px;
+        border-radius: 15px;outline: none;border:none;
+    }
+#zhezhao .zhezhao-div>div{
+    color:#000;
+    padding:50px 0;
+    min-width:200px;
+}
+#zhezhao .zhezhao-div>div p{
+    margin:0;
+    font-weight: 200;
+    text-align: left;
+    font-size: 16px;
+    padding:0 5px;
+}
+.affirm{
+    background: #146b7a;
+    color:#fff;
+}
+
+/*排行榜样式*/
+.ranking-page{
+    background: rgba(0,0,0,.5);
+    color: #fff;
+    border-radius: 10px;
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+.close-img{
+    width: 1.5rem;
+    position: absolute;
+    right:0;
+    top:0;
+}
+.send-success{
+    position: absolute;top: 50%;left: 50%;color: #fff;text-align: center;background-color:rgba(0,0,0,.5);border-radius: 10px;
+        transform: translate(-50%, -50%);margin: 0 auto;
+}
+.list{
+    display: flex;
+    flex-direction:column;
+    /*width: 600rpx;*/
+    justify-content:center;
+    margin:0 auto;
+    /*padding-top:50rpx;*/
+    padding-left:0;
+}
+.list li:nth-child(1){
+    margin-bottom:30rpx;
+}
+.list li{
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom: 0.8rem;
+}
+.list li view{
+    width: 80rpx;
+    text-align: left;
+}
+.list-li{
+    font-size: 18px;
+}
+/*.list li .grade{
+    width: 150px;
+}*/
+.list-li view:nth-child(1){
+    text-align: center;
+}
+.list-li view:nth-child(4){
+  width:48px;
+}
+#list .list-li >div:nth-child(3){
+    margin:0 15px;
+}
+.list li .username{
+    width: 11rem;
+    display: flex;
+    text-align: left;
+    font-size:1rem;
+    align-items: center;
+    /* text-align: center; */
+    justify-content: flex-start;
+    /* padding-left: 30px; */
+
+}
+.list li .username span{
+    display: inline-block;
+    overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+/*width: 80px;*/
+}
+.list li div img{
+    width:2rem;
+    height:2rem;
+    border-radius:50%;
+    display:block;
+    margin-right: 20px;
+}
+#list li:nth-child(1) .ranking,#list li:nth-child(2) .ranking,#list li:nth-child(3) .ranking{
+    font-weight:800;
+    font-size: 20px;
+    color:#621d6d;
+}
+#list li .ranking{
+    margin:0 15px;
+    width: 0.8rem;
+}
